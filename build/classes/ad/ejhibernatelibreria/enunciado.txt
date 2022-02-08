@@ -1,0 +1,55 @@
+
+Ejercicio Libreria (Libros - Autores)
+Crear una base de datos  llamada LibrosAutoresHibernate, con varias tablas:
+
+     ->una de  Libros , Autores y Telefonos (LibrosAutores opcional si se hace uso relación N-N).
+
+     Tabla  Libros:   IdLibro/Título/Precio, clave primaria  IdLibro autoincrement,    
+
+     Tabla  Autores:  DniAutor/Nombre/Nacionalidad,clave primaria DniAutor.
+
+Relación N-N (@ManyToMany)
+     Tabla Libros_Autores si se contempla su realización
+
+Relación 1-N (@ManyToOne, @OneToMany)
+     Autores - Libros
+
+Relación 1-1 (@OneToOne)
+     Tabla Teléfonos: Dni (autor ClavePrimaria)/ NúmeroTf/Dni (autor ClaveForánea)
+
+Realizar un  programa en java:
+
+  - utilizando O.R.M hibernate, 
+
+  - que  cargue un driver JDBC y establezca la conexión con una BD MySQL (en la misma máquina cliente junto al driver. Aplicación y el Servidor USBW portable como en UD BDRR)
+
+Menú que invoque a las distintas clases con sus respectivos métodos, que se exponen a continuación:
+
+ Creación  de la Base de Datos y tablas.
+ Creación de pojos y mapeos.
+      MENÚ  
+
+      1- Inserción de nuevas filas.
+
+                a. Inserción autor.
+
+                b. Inserción libro
+
+        2- Borrado de filas.
+
+                 a. Borrado libro
+
+                 b. Borrado autor   
+
+         3- Consultas.
+
+                  a. Introduciendo el título de un libro visualice sus datos  
+
+                  b. Introduciendo el nombre de un autor visualice sus libros.
+
+                  c. Visualización de todos los Libros.                                  
+
+                  d.Visualización  de todos los autores con sus libros.
+
+            4-Fin.
+
