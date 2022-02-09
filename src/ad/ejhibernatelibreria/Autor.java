@@ -19,14 +19,14 @@ public class Autor {
     @Id
     @Column(name = "DniAutor")
     private String dni;
-
-    @Column(name = "Nombre")
     private String nombre;
-
-    @Column(name = "Nacionalidad")
     private String Nacionalidad;
 
-    @ManyToMany(cascade = {CascadeType.ALL}, mappedBy = "autores")
+    @ManyToMany(
+            cascade = {CascadeType.ALL},
+            mappedBy = "autores",
+            fetch = FetchType.EAGER)
+
     private Set<Libro> libros = new HashSet();
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -82,6 +82,10 @@ public class Autor {
     public void setTelefono(Telefono telefono) {
         this.telefono = telefono;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Autor{" + "dni=" + dni + ", nombre=" + nombre + ", Nacionalidad=" + Nacionalidad + ", libros=" + libros.toString() + ", telefono=" + telefono + '}';
+    }
+
 }

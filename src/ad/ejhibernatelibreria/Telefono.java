@@ -56,6 +56,11 @@ public class Telefono {
     public void setAutor(Autor autor) {
         this.autor = autor;
     }
+
+    @Override
+    public String toString() {
+        return "Telefono{" + "dni=" + dni + ", numeroTf=" + numeroTf + '}';
+    }
     
     
 }

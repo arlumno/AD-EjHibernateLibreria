@@ -4,9 +4,12 @@
  */
 package ad.ejhibernatelibreria;
 
+import java.util.Scanner;
+import menu.Menu;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import utilidades.Log;
 
 /**
  *
@@ -17,30 +20,87 @@ public class Main {
     /**
      * @param args the command line arguments
      */
+    static private Log log = Log.getInstance();
+
     public static void main(String[] args) {
-        SessionFactory sessionFactory;
-        sessionFactory = new Configuration().configure().buildSessionFactory();
+        boolean continuar = true;
+
+        Menu menu = construirMenuPrincipal();
+
+        do {
+            try {
+                continuar = menuAcciones(menu);
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
+        } while (continuar);
+
+    }
+
+    private static Menu construirMenuPrincipal() {
+        Menu menu = new Menu();
+        App app = new App();
+
+        menu.setTituloMenu("Menu Ej. Hibernate");
+        menu.setTextoSalir("salir");
+        log.addToLog("iniciado el programa");
         
-        Autor a1 = new Autor("53170624Y", "Armando", "Española", new Telefono("53170624Y","986 123 456"));
+        menu.addOpcion("Insertar Filas", () -> {
+            app.demo();
+        });
         
-        Libro lib1 = new Libro(1, "Un Tutorial de Ejemplo", 9.95F);
-        Libro lib2 = new Libro(2, "Las Disculpas", 4.95F);
+        menu.addOpcion("Borrar Filas", () -> {
+            app.eliminar();
+        });
         
-        a1.getLibros().add(lib1);
-        a1.getLibros().add(lib2);
+        menu.addOpcion("Modificarfilas", () -> {
+           app.modificar();
+        });
         
-        lib1.getAutores().add(a1);
-        lib2.getAutores().add(a1);
-        
-        Session session=sessionFactory.openSession();
-        session.beginTransaction();
-        
-        session.save(a1);
-        
-        session.getTransaction().commit();
-        session.close();
-        
-        
+        menu.addOpcion("Consultar filas", () -> {
+           app.consultar();
+        });
+
+//        menu.addOpcion("Pedir un texto Obligatorio", () -> {
+//            peticiones.SalidasGui.mensaje(peticiones.EntradasGui.pedirString("Texto obligatorio entre 1 y 3", 3, 1, true));
+//        });
+//        menu.addOpcion("Pedir un texto NO Obligatorio", () -> {
+//            peticiones.SalidasGui.mensaje(peticiones.EntradasGui.pedirString("Texto opcional entre 1 y 3", 3, 1, false));
+//        });
+
+        menu.addLabel("LOG");
+        menu.addOpcion("Ver Log", () -> {
+            peticiones.SalidasGui.bloqueTexto("Log", utilidades.Log.getInstance().getLog());
+        });
+        menu.addOpcion("Borrar Log", () -> {
+            utilidades.Log.getInstance().borrarLog();
+        });
+        menu.addLabel("LOG");
+
+        return menu;
+    }
+
+    private static boolean menuAcciones(Menu menu) throws Exception {
+        boolean continuar = true;
+        menu.mostrarGUI();
+        //menu.mostrar();
+        switch (menu.getSeleccion()) {
+            case 0:
+                //salir
+                continuar = false;
+                log.addToLog("finalizado el programa");
+                System.out.println("Bye Bye!");
+                break;
+            //deprecated, ahora se asigna directamente la funcion al añadir el boton
+//            case 1:
+//                System.out.println(EntradasGui.pedirFecha("mensaje").toString());
+//                break;
+//            default:
+//                System.out.println("opcion incorrecta");
+//                break;
+
+        }
+        return continuar;
     }
 
 }

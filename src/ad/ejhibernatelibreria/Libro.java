@@ -14,29 +14,33 @@ import javax.persistence.*;
  * @author a20armandocb
  */
 @Entity
-@Table(name="Libros")
+@Table(name = "Libros")
 public class Libro {
-    
+
     @Id
-    @Column(name="IdLibro")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "IdLibro")
     private int id;
-    
-    @Column(name="Titulo")
     private String titulo;
-    
-    @Column(name="Precio")
     private float precio;
-    
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name="LibrosAutores", joinColumns={@JoinColumn(name="IdLibro")}, inverseJoinColumns={@JoinColumn(name="DniAutor")})
+
+    @ManyToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    @JoinTable(
+            name = "LibrosAutores",
+            joinColumns = {
+                @JoinColumn(name = "IdLibro")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "DniAutor")}
+    )
     private Set<Autor> autores = new HashSet();
 
     public Libro() {
     }
 
-    
-    public Libro(int id, String titulo, float precio) {
-        this.id = id;
+    public Libro(String titulo, float precio) {
         this.titulo = titulo;
         this.precio = precio;
     }
@@ -72,6 +76,10 @@ public class Libro {
     public void setAutores(Set<Autor> autores) {
         this.autores = autores;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Libro{" + "id=" + id + ", titulo=" + titulo + ", precio=" + precio + '}';
+    }
+
 }
