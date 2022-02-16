@@ -79,7 +79,12 @@ public class Libro {
 
     @Override
     public String toString() {
-        return "Libro{" + "id=" + id + ", titulo=" + titulo + ", precio=" + precio + '}';
+        StringBuilder text = new StringBuilder();
+        text.append("Libro{" + "id=" + id + ", titulo=" + titulo + ", precio=" + precio + '}');
+        for(Autor autor: autores){
+            text.append("\n---- Autor: " + autor.getNombre());
+        }
+        return text.toString();
     }
 
 }

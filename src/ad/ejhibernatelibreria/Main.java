@@ -57,8 +57,21 @@ public class Main {
            app.modificar();
         });
         
-        menu.addOpcion("Consultar filas", () -> {
-           app.consultar();
+        menu.addOpcion("Consultar Autor", () -> {
+           app.consultarAutor();
+        });
+        
+        menu.addOpcion("Consultar Libro", () -> {
+           app.consultarLibro();
+        });
+        menu.addOpcion("Listar Libros", () -> {
+           app.listarLibros();
+        });
+        menu.addOpcion("Listar Autores", () -> {
+           app.listarAutores();
+        });
+        menu.addOpcion("Eliminar Autores", () -> {
+           app.eliminarAutores();
         });
 
 //        menu.addOpcion("Pedir un texto Obligatorio", () -> {
