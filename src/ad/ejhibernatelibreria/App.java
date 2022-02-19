@@ -44,33 +44,26 @@ public class App {
 
 //        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 //        Session session=sessionFactory.openSession();
-        Session session = (new Configuration().configure().buildSessionFactory()).openSession();
+//        Session session = (new Configuration().configure().buildSessionFactory()).openSession();
 
-        session.beginTransaction();
+        ConexionHibernateSF.getSession().beginTransaction();
 
-        session.save(a1);
-        session.save(a2);
-        session.save(a3);
+        ConexionHibernateSF.getSession().save(a1);
+        ConexionHibernateSF.getSession().save(a2);
+        ConexionHibernateSF.getSession().save(a3);
 
-        session.getTransaction().commit();
-        session.close();
-
+        ConexionHibernateSF.getSession().getTransaction().commit();
+        ConexionHibernateSF.getSession().close();
     }
 
     public static void consultarAutor() {
 
-        //session.beginTransaction();
-//        session.getTransaction().commit();           
         String dni = EntradasGui.pedirString("indica el dni del autor");
         if (dni != null) {
             System.out.println("Buscado dni: " + dni);
 
-            Session session = (new Configuration().configure().buildSessionFactory()).openSession();
-
-            Autor autor = (Autor) (session.get(Autor.class, dni));
-            //Object ob ;
+            Autor autor = (Autor) (ConexionHibernateSF.getSession().get(Autor.class, dni));
             if (autor != null) {
-//            if((ob = session.get(Autor.class, dni)) != null){                            
                 System.out.println("---------------------");
                 System.out.println(autor.toString());
                 System.out.println("---------------------");
@@ -78,7 +71,7 @@ public class App {
                 System.out.println("No se ha encontrado el autor con dni: " + dni);
             }
 
-            session.close();
+            ConexionHibernateSF.close();
 
         }
 
@@ -86,8 +79,8 @@ public class App {
 
     public static void listarAutores() {
 
-        Session session = (new Configuration().configure().buildSessionFactory()).openSession();
-        List<Autor> autores = session.createQuery("SELECT b FROM Autor b", Autor.class).list();
+//        Session session = (new Configuration().configure().buildSessionFactory()).openSession();
+        List<Autor> autores = ConexionHibernateSF.getSession().createQuery("SELECT b FROM Autor b", Autor.class).list();
 
         if (!autores.isEmpty()) {
             for (Autor autor : autores) {
@@ -98,13 +91,14 @@ public class App {
         } else {
             System.out.println("No hay libros");
         }
-        session.close();
+        ConexionHibernateSF.close();
     }
 
     public static void listarLibros() {
 
-        Session session = (new Configuration().configure().buildSessionFactory()).openSession();
-        List<Libro> libros = session.createQuery("SELECT b FROM Libro b", Libro.class).list();
+//        Session session = (new Configuration().configure().buildSessionFactory()).openSession();
+//        List<Libro> libros = session.createQuery("SELECT b FROM Libro b", Libro.class).list();
+        List<Libro> libros = ConexionHibernateSF.createQueryList("SELECT b FROM Libro b", Libro.class);
 
         if (!libros.isEmpty()) {
             for (Libro libro : libros) {
@@ -115,23 +109,17 @@ public class App {
         } else {
             System.out.println("No hay libros");
         }
-        session.close();
+        ConexionHibernateSF.close();
     }
 
     public static void consultarLibro() {
         String titulo = EntradasGui.pedirString("indica parte del titulo del autor");
         if (titulo != null) {
 
-            Session session = (new Configuration().configure().buildSessionFactory()).openSession();
-            //session.beginTransaction();
-//        session.getTransaction().commit();        
-
-//            List<Libro> libros = session.createQuery("SELECT b FROM Libro b WHERE b.titulo = :titulo", Libro.class)
-//                                .setParameter("titulo", titulo).list();
+            
             //con Like
-            List<Libro> libros = session.createQuery("SELECT b FROM Libro b WHERE b.titulo LIKE :titulo", Libro.class
-            )
-                    .setParameter("titulo", "%" + titulo + "%").list();
+            List<Libro> libros = ConexionHibernateSF.getSession().createQuery("SELECT b FROM Libro b WHERE b.titulo LIKE :titulo", Libro.class
+                                                         ).setParameter("titulo", "%" + titulo + "%").list();
 
             if (!libros.isEmpty()) {
                 for (Libro libro : libros) {
@@ -142,45 +130,46 @@ public class App {
             } else {
                 System.out.println("No hay concordancias para libros con: " + titulo);
             }
-            session.close();
+            ConexionHibernateSF.close();
         }
 
     }
 
     public static void modificar() {
-        Session session = (new Configuration().configure().buildSessionFactory()).openSession();
-        Autor a1 = (Autor) (session.get(Autor.class,
+//        Session session = (new Configuration().configure().buildSessionFactory()).openSession();
+        Autor a1 = (Autor) (ConexionHibernateSF.getSession().get(Autor.class,
                 "53170624Y"));
         a1.setNombre("Fernando");
         a1.setTelefono(new Telefono(a1.getDni(), "111 222 333"));
-        session.beginTransaction();
-        session.update(a1);
-        session.getTransaction().commit();
+        ConexionHibernateSF.getSession().beginTransaction();
+        ConexionHibernateSF.getSession().update(a1);
+        ConexionHibernateSF.getSession().getTransaction().commit();
+        ConexionHibernateSF.close();
     }
 
     public static void eliminar() {
-        Session session = (new Configuration().configure().buildSessionFactory()).openSession();
-        Autor a1 = (Autor) (session.get(Autor.class, "53170624Y"));
-        session.beginTransaction();
-        session.delete(a1);
-        session.getTransaction().commit();
+//        Session session = (new Configuration().configure().buildSessionFactory()).openSession();
+        Autor a1 = (Autor) (ConexionHibernateSF.getSession().get(Autor.class, "53170624Y"));
+        ConexionHibernateSF.getSession().beginTransaction();
+        ConexionHibernateSF.getSession().delete(a1);
+        ConexionHibernateSF.getSession().getTransaction().commit();
     }
 
     public static void eliminarAutores() {
-        Session session = (new Configuration().configure().buildSessionFactory()).openSession();
-        List<Autor> autores = session.createQuery("SELECT b FROM Autor b", Autor.class).list();
+//        Session session = (new Configuration().configure().buildSessionFactory()).openSession();
+        List<Autor> autores = ConexionHibernateSF.createQueryList("SELECT b FROM Autor b", Autor.class);
 
         if (!autores.isEmpty()) {
-            session.beginTransaction();
+            ConexionHibernateSF.getSession().beginTransaction();
             for (Autor autor : autores) {
                 System.out.println(autor.getNombre() + " ---- Borrando....");
-                session.delete(autor);
+                ConexionHibernateSF.getSession().delete(autor);
             }
-            session.getTransaction().commit();
+            ConexionHibernateSF.getSession().getTransaction().commit();
             System.out.println("- - - - elementos eliminados - - -");
         } else {
             System.out.println("No hay libros");
         }
-        session.close();
+        ConexionHibernateSF.close();
     }
 }

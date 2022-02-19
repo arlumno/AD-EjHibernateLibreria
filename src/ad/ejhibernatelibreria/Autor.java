@@ -24,7 +24,7 @@ public class Autor {
 
     @ManyToMany(
             cascade = {CascadeType.ALL},
-            mappedBy = "autores",
+            mappedBy = "autores", //nombre de la variable en el otro pojo
             fetch = FetchType.EAGER)
 
     private Set<Libro> libros = new HashSet();

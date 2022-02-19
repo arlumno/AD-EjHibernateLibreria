@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Z:/ArGit/AD/AD-EjHibernateLibreria/src/ad/ejhibernatelibreria/App.java</file>
-            <file>file:/Z:/ArGit/AD/AD-EjHibernateLibreria/src/ad/ejhibernatelibreria/Main.java</file>
-            <file>file:/Z:/ArGit/AD/AD-EjHibernateLibreria/src/ad/ejhibernatelibreria/Libro.java</file>
-            <file>file:/Z:/ArGit/AD/AD-EjHibernateLibreria/src/hibernate.cfg.xml</file>
-            <file>file:/Z:/ArGit/AD/AD-EjHibernateLibreria/src/ad/ejhibernatelibreria/Autor.java</file>
+            <file>file:/C:/Users/Ar/Documents/proyectos%20git/AD-EjHibernateLibreria/src/ad/ejhibernatelibreria/Main.java</file>
+            <file>file:/C:/Users/Ar/Documents/proyectos%20git/AD-EjHibernateLibreria/src/hibernate.cfg.xml</file>
+            <file>file:/C:/Users/Ar/Documents/proyectos%20git/AD-EjHibernateLibreria/src/ad/ejhibernatelibreria/App.java</file>
+            <file>file:/C:/Users/Ar/Documents/proyectos%20git/AD-EjHibernateLibreria/src/ad/ejhibernatelibreria/conexionHibernateSF.java</file>
         </group>
     </open-files>
 </project-private>

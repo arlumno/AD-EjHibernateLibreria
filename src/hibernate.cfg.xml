@@ -3,8 +3,10 @@
 <hibernate-configuration>
   <session-factory>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-    <!--<property name="connection.url">jdbc:mysql://localhost:3307/LibrosAutoresHibernate?serverTimezone=UTC</property>-->
+    <!--
     <property name="connection.url">jdbc:mysql://localhost:3307/LibrosAutoresHibernate</property>
+    -->
+        <property name="connection.url">jdbc:mysql://localhost:3307/LibrosAutoresHibernate?serverTimezone=UTC</property>
     <property name="connection.username">root</property>
     <property name="connection.password">usbw</property>
     <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
