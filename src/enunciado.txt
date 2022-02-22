@@ -1,0 +1,184 @@
+Ejercicio Herencia Empleados
+Una empresa que se dedica a programar “Programación.S.A” ,recibe el encargo de un proyecto para informatizar un conjunto de empresas.
+
+Realizar en java con hibernate un programa que desarrolle CRUD  (altas,bajas,modificaciones,consultas) de sus empleados y de  los productos que comercializan ,los empleados  pueden ser fijos ó temporales ,tienen una relación de herencia con una clase abstracta  llamada Empleados ,cada empleado solo puede trabajar en una empresa.
+
+ 
+
+La clase Empleados  será abstracta y tiene una relación de herencia con empleadosFijos y Temporales, de estos se registrarán todas las ventas efectuadas durante su período de contrato..
+
+ 
+
+Disponemos de los siguientes Pojos:
+
+ 
+
+Empresas
+
+ 
+
+string cif
+string nombre
+string dirección
+string teléfono
+Set<Productos>.
+Set<Empleados>.
+
+En la tabla no podemos poner los set<>,se ponen como clave foránea en el lado varios
+
+ 
+
+Productos
+
+ 
+
+String Código en la tabla es clave primaria.
+
+int StockActualAlmacén.
+
+Final int stockMínimo =30 unidades.
+
+float precioUnitario.
+
+En la tabla clave foránea es el cif de la empresa.
+
+ 
+
+Empleados
+
+ 
+
+string dni,en la tabla clave primaria.
+
+string nombre.
+
+String teléfono.
+
+float porcentaRetención.
+
+Tendrá un método abstracto calculoNómina().
+
+En la tabla clave foránea es el cif de la empresa.
+
+ 
+
+Fijos
+
+ 
+
+int salarioBase.
+
+int trienios.
+
+En la tabla la clave primaria y foránea es el dni del empleado
+
+ 
+
+ 
+
+Se redefine por polimorfismo :calculoNómina()
+
+float sueldo =(salarioBase+trienios)-(salarioBase+trienios)*porcentaRetencion.
+
+ 
+
+Temporales
+
+en la tabla la clave primaria y foránea es el dni del empleado
+
+ 
+
+date fechaInicio
+
+date fechaFin
+
+float pagoDia
+
+Se redefine por polimorfismo :calculoNómina()
+
+float sueldo =PagoDia*(fechaFin-fechaInicio)-PagoDia*(fechaFin-fechaInicio)*porcentaRetencion+suplemento.
+
+Set<Ventas>,en la tabla no se pone el set<>.
+
+ 
+
+Ventas
+
+ 
+
+date fechaVenta.(La fecha y la hora introducirla del sistema dentro del constructor)
+
+Time hora.
+
+String CódigoArtículo.
+
+int númeroUnidades.
+
+float importe.
+
+En la tabla (CódigoArtículo+Empleado+fechaVenta+hora) es la clave primaria compuesta
+
+En la tabla el dni del empleado es la clave foránea.
+
+ PRIMARY KEY(PRODUCTO, EMPLEADO, FECHA_VENTA, HORA),"
+
+ 
+
+                        MENÚ
+
+ 
+
+-Altas
+
+            1-Empresas
+
+            2-Empleados
+
+                        a-Fijos
+
+                        b-Temporales
+
+            3-Productos.
+
+            4-Ventas .
+
+ 
+
+-Bajas
+
+            -Empleados
+
+                        a-Fijos
+
+                        b-Temporales.
+
+-Modificaciones
+
+                        -Precio de un producto
+
+                        -Sueldobase empleadoFijo.
+
+                        -PorcentaRetención.
+
+                        -ImporteDía empleado Temporal.
+
+-Consultas
+
+                        -Listado de las empresas con todos sus empleados fijos y temporales.
+
+                        -Listado de los productos de una empresa determinada.
+
+                        -Dado un empleado temporal ,visualizar su nómina, comprobando  que si en su período de contratación, vende un importe superior a 100.000 euros ,cobrará un suplemento de 100 euros.
+
+ 
+
+ 
+
+Nota:
+
+            Antes de realizar una venta, tenemos que comprobar que las existencias actuales son superiores a las que nos solicitan y que la diferencia entre las actuales menos las solicitadas no son inferiores a las existencias mínimas que debemos tener en el almacén de cada producto y si son inferiores emitir el mensaje “Existencias insuficientes”,en caso contrario  antes de  realizar el  alta de la venta(objetoVenta) ,habrá que modificar el stock actual en el producto,lo que sería una modificación y tambien una alta de una venta.
+
+ 
+
+En la tabla de Empleados,si ponemos la clave primaria como autoincrement, podremos  poner otra clave alternativa para hacerlo único de tipo Unique index U_DNI(dni) .
+
